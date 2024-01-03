@@ -15,3 +15,35 @@
 # else:
 # <-->실행 코드
 # <-->실행 코드
+# -----------------------------------------------------------------------------
+
+# -----------------------------------------------------------------------------
+# 조건부 표현식 ===> (5) 1줄 조건문
+#
+# 조건 True 실행 코드 if 조건식 else 조건 False 실행 코드
+# -----------------------------------------------------------------------------
+# 홀수 & 짝수 식별 후 출력하는 코드
+num = 27
+if num % 2:
+    print(f'{num} 홀수')
+else:
+    print(f'{num} 짝수')
+
+print(f'{num} 홀수' if num % 2 else f'{num} 짝수')
+
+result = "홀수" if num % 2 else "짝수"
+
+# 양수, 0, 음수 식별 후 결과 출력
+if num > 0:
+    print(f'{num} 양수')
+elif num < 0:
+    print(f'{num} 음수')
+else:
+    print(f'{num} 영')
+
+result = "양수" if num % 2 else "음수" if num < 0 else "영"
+result = "양수" if num % 2 else ("음수" if num < 0 else "영")
+print(f'{num} {result}')
+
+result = int("123") if "123".isdecimal() else "123"
+result = int("삼백") if "삼백".isdecimal() else "삼백"
