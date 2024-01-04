@@ -23,8 +23,8 @@ for data in enumerate(x):
     myDict[data[1]] = y[data[0]]
 print(f'myDict => {myDict}')
 
-myDict = {}
+myDict2 = {}
 for idx, key in enumerate(x):
     # idx=0, key='std01'
-    myDict[key] = y[idx]
-print(f'myDict => {myDict}')
+    myDict2[key] = y[idx]
+print(f'myDict2 => {myDict2}')

@@ -33,3 +33,6 @@ z = [111, 222, 333, 444, 555]
 
 result = zip(x, y, z)
 print(f'result => {type(result)}, {list(result)}')
+
+dataDict3 = dict(zip(x, y))
+print(f'dataDict3 : {dataDict3}')

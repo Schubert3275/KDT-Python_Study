@@ -36,5 +36,3 @@ for idx in range(len(result)):
     result[idx] = str(result[idx])
 
 print(f'[AFTER]  result => {result}')
-print("test")
-print("test2")
