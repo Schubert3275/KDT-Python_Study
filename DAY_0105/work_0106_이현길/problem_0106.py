@@ -113,7 +113,8 @@ def funcSumZero(nums: list):
                 if i >= k or j >= k:
                     continue
                 if (nums[i] + nums[j] + nums[k]) == 0:
-                    combiSet.add(frozenset({nums[i], nums[j], nums[k]}))
+                    if len(frozenset({nums[i], nums[j], nums[k]})) == 3:
+                        combiSet.add(frozenset({nums[i], nums[j], nums[k]}))
     print(len(combiSet))
 
 
