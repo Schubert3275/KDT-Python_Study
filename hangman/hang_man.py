@@ -12,9 +12,16 @@ class Color:
     Cyan = '\033[96m'
 
 
-def file_load() -> tuple:
+def file_load(size: str) -> tuple:
     """txt 파일에서 단어 목록 중복 제거하여 튜플 형태로 반환"""
-    with open('wordlist.txt', 'r') as file:
+    filename = 'wordlist'
+    if size == '1':
+        filename += '_small'
+    elif size == '2':
+        filename += '_big'
+    else:
+        filename += '_extreme'
+    with open(f'{filename}.txt', 'r') as file:
         word_list = tuple(set(file.read().lower().split('\n')))
     return word_list
 
@@ -154,8 +161,18 @@ def hangman_aa() -> list:
 def main():
     check = ''
     print("행맨(Hangman) 게임을 시작합니다.")
+    print("플레이할 단어 풀(Pool)의 크기를 고를 수 있습니다.")
+    print("1. small   - 약 200개의 단어가 포함되어 있습니다.")
+    print("2. big     - 약 800개의 단어가 포함되어 있습니다.")
+    print(Color.Red + "3. extreme - (주의!) 5만개 이상의 단어가 포함되어 있습니다." + Color.Reset)
+    while True:
+        size = input("단어 풀(pool)의 크기를 선택해 주세요 : ")
+        if size in ('1', '2', '3'):
+            break
+        else:
+            print("1, 2, 3 중 하나를 입력하세요.")
+    word_list = file_load(size)
     while check not in ('x', 'X'):
-        word_list = file_load()
         select_word, hidden_word = random_word(word_list)
         point = 6
         guess_list = []
