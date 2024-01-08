@@ -490,37 +490,40 @@ def funcZodiac2(pCode: str):
     print(f'{age}세, {gender}, {year}년 {month}월 {day}일 {cZodiacList[cZodiacCheck]}띠 {zodiac}')
 
 
+# -------------------------------------------------------------------------------------------------
+# 결과 출력
+# -------------------------------------------------------------------------------------------------
 def main():
     while True:
-        TEST = int(input("확인할 문제 번호를 입력(1-32, 0 또는 범위 외 입력으로 종료) : "))
+        test = int(input("확인할 문제 번호를 입력(1-32, 0 또는 범위 외 입력으로 종료) : "))
         print()
-        if TEST == 1:    # 1
-            print(f'{TEST}번 문제')
+        if test == 1:    # 1
+            print(f'{test}번 문제')
             msg17 = ['Good', 'child', 'Zoo', 'apple', 'Flower', 'zero']
             funcStrSorting(msg17)
-        elif TEST == 2:    # 2
-            print(f'{TEST}번 문제')
+        elif test == 2:    # 2
+            print(f'{test}번 문제')
             # 하늘 Apple 2021 -9 False 23 7 None 끝
             # A 홍길동 False True True None Good Luck 가나다라
             funcSumMaxMin()
-        elif TEST == 3:    # 3
-            print(f'{TEST}번 문제')
+        elif test == 3:    # 3
+            print(f'{test}번 문제')
             funcPrintPattern()
-        elif TEST == 4:    # 4
-            print(f'{TEST}번 문제')
+        elif test == 4:    # 4
+            print(f'{test}번 문제')
             funcCommonMult()
-        elif TEST == 5:    # 5
-            print(f'{TEST}번 문제')
+        elif test == 5:    # 5
+            print(f'{test}번 문제')
             data5 = "가나다"
             funcEncoding(data5)
-        elif TEST == 6:    # 6
-            print(f'{TEST}번 문제')
+        elif test == 6:    # 6
+            print(f'{test}번 문제')
             datas6_1 = ['askde', 'beach', 'surf']
             datas6_2 = ['home', 'pitch', 'python']
             print(strIndexSorting(datas6_1, 2))
             print(strIndexSorting(datas6_2, 1))
-        elif TEST == 7:    # 7
-            print(f'{TEST}번 문제')
+        elif test == 7:    # 7
+            print(f'{test}번 문제')
             nums7_1 = [0, 1, 2, 4, 5, 2, 9]
             nums7_2 = [0, 1, 2, 4, 5, 2, 9, 3, 2, 8, 1]
             nums7_3 = [0, 1, 2, 4, 5, 3, 1, 7]
@@ -529,77 +532,77 @@ def main():
             print(funcContinuousTwo(nums7_2))
             print(funcContinuousTwo(nums7_3))
             print(funcContinuousTwo(nums7_4))
-        elif TEST == 8:    # 8
-            print(f'{TEST}번 문제')
+        elif test == 8:    # 8
+            print(f'{test}번 문제')
             nums8_1 = [-2, 3, 0, 2, -5]
             nums8_2 = [-3, -2, -1, 0, 1, 2, 3]
             funcSumZero(nums8_1)
             funcSumZero(nums8_2)
-        elif TEST == 9:    # 9
-            print(f'{TEST}번 문제')
+        elif test == 9:    # 9
+            print(f'{test}번 문제')
             dan9 = int(input("출력 원하는 단 : "))
             funcMultiTable(dan9)
-        elif TEST == 10:    # 10
-            print(f'{TEST}번 문제')
+        elif test == 10:    # 10
+            print(f'{test}번 문제')
             data10_1 = '123,42,98,18'
             data10_2 = '1,234'
             funcSumMaxMin2(data10_1)
             funcSumMaxMin2(data10_2)
-        elif TEST == 11:    # 11
-            print(f'{TEST}번 문제')
+        elif test == 11:    # 11
+            print(f'{test}번 문제')
             funcBingo()
-        elif TEST == 12:    # 12
-            print(f'{TEST}번 문제')
+        elif test == 12:    # 12
+            print(f'{test}번 문제')
             func248game()
-        elif TEST == 13:    # 13
-            print(f'{TEST}번 문제')
+        elif test == 13:    # 13
+            print(f'{test}번 문제')
             funcMonth()
-        elif TEST == 14:    # 14
-            print(f'{TEST}번 문제')
+        elif test == 14:    # 14
+            print(f'{test}번 문제')
             #      1234567,  $
             # 907, ￦
             money14 = input("숫자 입력: ")
             funcExpression(money14)
-        elif TEST == 15:    # 15
-            print(f'{TEST}번 문제')
+        elif test == 15:    # 15
+            print(f'{test}번 문제')
             funcMonth2()
-        elif TEST == 16:    # 16
-            print(f'{TEST}번 문제')
+        elif test == 16:    # 16
+            print(f'{test}번 문제')
             funcCommonDiv()
-        elif TEST == 17:    # 17
-            print(f'{TEST}번 문제')
+        elif test == 17:    # 17
+            print(f'{test}번 문제')
             # Happy New Year 2023!
             # 홍길동 010-1111-2222
             msg17 = input("메시지 입력: ")
             funcDuplicat(msg17)
-        elif TEST == 18:    # 18
-            print(f'{TEST}번 문제')
+        elif test == 18:    # 18
+            print(f'{test}번 문제')
             birth18 = input("생년월일 입력(2000.04.01): ")
             funcHowOld(birth18)
-        elif TEST == 19:    # 19
-            print(f'{TEST}번 문제')
+        elif test == 19:    # 19
+            print(f'{test}번 문제')
             funcFac()
-        elif TEST == 20:    # 20
-            print(f'{TEST}번 문제')
+        elif test == 20:    # 20
+            print(f'{test}번 문제')
             num20 = int(input("범위 숫자 입력: "))
             funcPrimeNumber(num20)
-        elif TEST == 21:    # 21
-            print(f'{TEST}번 문제')
+        elif test == 21:    # 21
+            print(f'{test}번 문제')
             funcScore()
-        elif TEST == 22:    # 22
-            print(f'{TEST}번 문제')
+        elif test == 22:    # 22
+            print(f'{test}번 문제')
             startEnd22 = input("시작 구구단, 종료 구구단 입력: ")
             funcMultiTable2(startEnd22)
-        elif TEST == 23:    # 23  # 20번 문제와 동일함
-            print(f'{TEST}번 문제 : 20번 문제와 동일함')
+        elif test == 23:    # 23  # 20번 문제와 동일함
+            print(f'{test}번 문제 : 20번 문제와 동일함')
             num23 = int(input("범위 숫자 입력: "))
             funcPrimeNumber(num23)
-        elif TEST == 24:    # 24
-            print(f'{TEST}번 문제')
+        elif test == 24:    # 24
+            print(f'{test}번 문제')
             num24 = int(input("숫자 입력: "))
             funcDigitNumber(num24)
-        elif TEST == 25:    # 25
-            print(f'{TEST}번 문제')
+        elif test == 25:    # 25
+            print(f'{test}번 문제')
             # 2, 9, 3, 5, 8, 7
             data25 = input("계산하고 싶은 데이터 입력: ").replace(' ', '').split(',')
             if data25[0].isdecimal():
@@ -610,30 +613,30 @@ def main():
             funcAddData(True, True, False, False, True)
             funcAddData('A')
             funcAddData('A', 'BC', 'Good')
-        elif TEST == 26:    # 26
-            print(f'{TEST}번 문제')
+        elif test == 26:    # 26
+            print(f'{test}번 문제')
             funcStars()
-        elif TEST == 27:    # 27
-            print(f'{TEST}번 문제')
+        elif test == 27:    # 27
+            print(f'{test}번 문제')
             funcSwapCase()
-        elif TEST == 28:    # 28
-            print(f'{TEST}번 문제')
+        elif test == 28:    # 28
+            print(f'{test}번 문제')
             num28_1, num28_2 = map(int, input("숫자 2개 입력 (3, 4)").replace(' ', '').split(','))
             funcCalc(num28_1, num28_2)
-        elif TEST == 29:    # 29
-            print(f'{TEST}번 문제')
+        elif test == 29:    # 29
+            print(f'{test}번 문제')
             funcInfo(age='12세', id='mm1004', name='마징가')
             funcInfo(phone='010-2222-1111', job='히어로')
             funcInfo(job='학생', loc='대구')
-        elif TEST == 30:    # 30
-            print(f'{TEST}번 문제')
+        elif test == 30:    # 30
+            print(f'{test}번 문제')
             # 011010-3234567
             funcZodiac()
-        elif TEST == 31:    # 31
-            print(f'{TEST}번 문제')
+        elif test == 31:    # 31
+            print(f'{test}번 문제')
             funcLeapYear()
-        elif TEST == 32:    # 32
-            print(f'{TEST}번 문제')
+        elif test == 32:    # 32
+            print(f'{test}번 문제')
             # 011010-3234567
             pCode32 = input("주민번호 입력(000000-0000000): ")
             funcZodiac2(pCode32)
