@@ -32,7 +32,7 @@ def word_guess(guess_list: list, select_word: str) -> str:
     """알파벳 하나를 입력받고 유효성 검사 후 사용한 알파벳 리스트 업데이트 및 유효 알파벳 반환"""
     while True:
         guess = input("알파벳을 하나 입력하세요: ").lower().strip()
-        if guess == 'cheatcode':
+        if guess == 'cheat code':
             print(f'정답: {select_word}')
         elif is_only_alpha(guess) and len(guess) == 1 and guess not in guess_list:
             guess_list.append(guess)
@@ -51,6 +51,8 @@ def is_only_alpha(letters: str) -> bool:
     for letter in letters:
         if letter.isalpha():
             ret *= 1 if ord('a') <= ord(letter) <= ord('z') else 0
+        else:
+            ret = 0
     return bool(ret)
 
 
@@ -163,9 +165,10 @@ def main():
             guess = word_guess(guess_list, select_word)
             point += word_find(select_word, hidden_word, guess)
             loop_check = print_result(hidden_word, guess_list, point)
-        print(f'정답: {Color.Bold}{select_word}{Color.Reset}\n')
+        print(f'정답: {Color.Purple}{select_word}{Color.Reset}\n')
 
-        check = input("계속하려면 아무 키나, 종료하려면 'X'를 입력하세요.\n")
+        check = input(f"계속하려면 {Color.Underline}아무 키{Color.Reset}나, "
+                      f"종료하려면 '{Color.Underline}x{Color.Reset}'를 입력하세요.\n")
 
 
 if __name__ == '__main__':
