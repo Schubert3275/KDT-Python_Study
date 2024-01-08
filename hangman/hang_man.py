@@ -28,19 +28,13 @@ def random_word(wordlist: tuple):
     return select_word, hidden_word
 
 
-def is_only_alpha(letters: str) -> bool:
-    ret = 0
-    for letter in letters:
-        if letter.isalpha():
-            ret *= 1 if ord('a') <= ord(letter) <= ord('z') else 0
-    return bool(ret)
-
-
-def word_guess(guess_list: list) -> str:
+def word_guess(guess_list: list, select_word: str) -> str:
     """알파벳 하나를 입력받고 유효성 검사 후 사용한 알파벳 리스트 업데이트 및 유효 알파벳 반환"""
     while True:
         guess = input("알파벳을 하나 입력하세요: ").lower().strip()
-        if is_only_alpha(guess) and len(guess) == 1 and guess not in guess_list:
+        if guess == 'cheatcode':
+            print(f'정답: {select_word}')
+        elif is_only_alpha(guess) and len(guess) == 1 and guess not in guess_list:
             guess_list.append(guess)
             guess_list.sort()
             return guess
@@ -50,6 +44,14 @@ def word_guess(guess_list: list) -> str:
             print(Color.Red + "한 글자만 입력해 주세요." + Color.Reset)
         else:
             print(Color.Red + "이미 사용한 글자입니다." + Color.Reset)
+
+
+def is_only_alpha(letters: str) -> bool:
+    ret = 1
+    for letter in letters:
+        if letter.isalpha():
+            ret *= 1 if ord('a') <= ord(letter) <= ord('z') else 0
+    return bool(ret)
 
 
 def word_find(select_word: str, hidden_word: list, guess: str) -> int:
@@ -71,7 +73,7 @@ def print_result(hidden_word: list, guess_list: list, point: int) -> bool:
     print(hangman_aa()[6 - point].rsplit('\n', 5)[1], end='  ')
     print(f'사용한 글자: "{Color.Green}{", ".join(guess_list)}{Color.Reset}"')
     print(hangman_aa()[6 - point].rsplit('\n', 5)[2], end='  ')
-    print(f'남은 기회: {Color.Cyan}{point}{Color.Reset}')
+    print(f'남은 기회: {print_point_color(point)}')
     print(hangman_aa()[6 - point].split('\n', 5)[5])
     if '_' in hidden_word and point != 0:
         return True
@@ -80,6 +82,16 @@ def print_result(hidden_word: list, guess_list: list, point: int) -> bool:
     else:
         print(Color.Bold + Color.Yellow + "You Win!" + Color.Reset)
     return False
+
+
+def print_point_color(point: int):
+    if point >= 5:
+        point_color = Color.Blue + str(point) + Color.Reset
+    elif point >= 3:
+        point_color = Color.Yellow + str(point) + Color.Reset
+    else:
+        point_color = Color.Red + str(point) + Color.Reset
+    return point_color
 
 
 def hangman_aa() -> list:
@@ -148,7 +160,7 @@ def main():
         loop_check = True
         print_result(hidden_word, guess_list, point)
         while loop_check:
-            guess = word_guess(guess_list)
+            guess = word_guess(guess_list, select_word)
             point += word_find(select_word, hidden_word, guess)
             loop_check = print_result(hidden_word, guess_list, point)
         print(f'정답: {Color.Bold}{select_word}{Color.Reset}\n')
