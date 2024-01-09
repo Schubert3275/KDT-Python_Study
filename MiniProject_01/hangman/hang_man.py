@@ -2,6 +2,7 @@ from typing import Tuple, List
 
 
 class Color:
+    """색상용 상수 선언"""
     Reset = '\033[0m'
     Bold = '\033[1m'
     Italic = '\033[3m'
@@ -86,7 +87,7 @@ def is_only_alpha(letters: str) -> bool:
 
 
 def word_find(select_word: str, hidden_word: List[str], guess: str) -> int:
-    """입력된 알파벳과 문제 단어를 비교하여 남은 기회 감산 처리"""
+    """입력된 알파벳과 문제 단어를 비교. 남은 기회 감산 처리"""
     index = -1
     if guess in select_word:
         for i in range(select_word.count(guess)):
