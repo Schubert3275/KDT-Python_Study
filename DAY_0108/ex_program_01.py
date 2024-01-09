@@ -33,6 +33,8 @@ while True:
     print(" 4. 곱  셈")
     print(" 5. 나눗셈")
     print(" 6. 기록보기")
+    print(" 7. 검  색")
+    print(" 8. 기록삭제")
     print(" 9. 종  료")
     choice = input("메뉴 선택 : ")
     if choice.isdecimal():
@@ -64,6 +66,6 @@ while True:
             print("프로그램 종료합니다.")
             break
         else:
-            print("메뉴는 1 ~ 6까지 선택 가능합니다.")
+            print("메뉴는 1 ~ 9까지 선택 가능합니다.")
     else:
         print("없는 메뉴입니다.")

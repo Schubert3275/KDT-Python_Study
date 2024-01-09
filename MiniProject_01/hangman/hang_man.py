@@ -100,6 +100,8 @@ def word_find(select_word: str, hidden_word: List[str], guess: str) -> int:
 
 def print_result(hidden_word: List[str], guess_list: List[str], point: int, size: str) -> bool:
     """행맨 그림 및 기타 UI 출력"""
+    import os
+    os.system('cls')
     print(f'\n사용 중인 단어 풀(Pool) - {paint(size, Color.Italic)}', end='')
     print(hangman_aa()[6 - point].rsplit('\n', 5)[0], end='  ')
     print(' '.join(hidden_word))
