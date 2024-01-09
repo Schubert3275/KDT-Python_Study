@@ -97,9 +97,9 @@ def word_find(select_word: str, hidden_word: List[str], guess: str) -> int:
     return 0
 
 
-def print_result(hidden_word: List[str], guess_list: List[str], point: int) -> bool:
+def print_result(hidden_word: List[str], guess_list: List[str], point: int, size: str) -> bool:
     """행맨 그림 및 기타 UI 출력"""
-    print(f'\n사용 중인 단어 풀(Pool) - {paint(point, Color.Italic)}', end='')
+    print(f'\n사용 중인 단어 풀(Pool) - {paint(size, Color.Italic)}', end='')
     print(hangman_aa()[6 - point].rsplit('\n', 5)[0], end='  ')
     print(' '.join(hidden_word))
     print(hangman_aa()[6 - point].rsplit('\n', 5)[1], end='  ')
@@ -194,11 +194,11 @@ def main():
         point = 6
         guess_list = []
         loop_check = True
-        print_result(hidden_word, guess_list, point)
+        print_result(hidden_word, guess_list, point, size)
         while loop_check:
             guess = word_guess(guess_list, select_word)
             point += word_find(select_word, hidden_word, guess)
-            loop_check = print_result(hidden_word, guess_list, point)
+            loop_check = print_result(hidden_word, guess_list, point, size)
         print(f'정답: {paint(select_word, Color.Purple)}\n')
 
         check = input(f"계속하려면 {paint('아무 키', Color.Underline)}나, "
