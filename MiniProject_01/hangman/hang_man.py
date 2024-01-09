@@ -1,3 +1,6 @@
+from typing import Tuple, List
+
+
 class Color:
     Reset = '\033[0m'
     Bold = '\033[1m'
@@ -9,51 +12,70 @@ class Color:
     Yellow = '\033[93m'
     Blue = '\033[94m'
     Purple = '\033[95m'
-    Cyan = '\033[96m'
+    White = '\033[97m'
 
 
-def file_load(size: str) -> tuple:
-    """txt 파일에서 단어 목록 중복 제거하여 튜플 형태로 반환"""
-    filename = 'wordlist'
-    if size == '1':
-        filename += '_small'
-    elif size == '2':
-        filename += '_big'
-    else:
-        filename += '_extreme'
-    with open(f'{filename}.txt', 'r') as file:
+def paint(msg, color=Color.White) -> str:
+    """색상 적용 편하게 하기 위한 함수"""
+    return color+str(msg)+Color.Reset
+
+
+def file_load() -> Tuple[tuple, str]:
+    """txt 파일에서 단어 목록을 읽어와 중복 제거 후 반환"""
+    size = size_check()
+    filename = 'wordlist_' + size + '.txt'
+    with open(filename, 'r') as file:
         word_list = tuple(set(file.read().lower().split('\n')))
-    return word_list
+    return word_list, size
 
 
-def random_word(wordlist: tuple):
+def size_check() -> str:
+    """단어 풀의 크기를 선택하여 해당하는 문자열을 반환"""
+    print("1. small   - 약 200개의 단어가 포함되어 있습니다.")
+    print("2. big     - 약 800개의 단어가 포함되어 있습니다.")
+    print(paint("3. extreme - (주의!) 5만개 이상의 단어가 포함되어 있습니다.", Color.Red))
+    size = ''
+    while size == '':
+        input_size = input("단어 풀(pool)의 크기를 선택해 주세요 : ")
+        if input_size == '1':
+            size = 'small'
+        elif input_size == '2':
+            size = 'big'
+        elif input_size == '3':
+            size = 'extreme'
+        else:
+            print("1, 2, 3 중 하나를 입력하세요.")
+    return size
+
+
+def random_word(wordlist: tuple) -> Tuple[str, List[str]]:
     """주어진 단어 목록에서 랜덤하게 하나를 추출하고 그 길이만큼 '_' 생성"""
     from random import choice
     select_word = choice(wordlist)
-    # select_word = 'testwordsample'
-    hidden_word = ['_'] * len(select_word)
+    hidden_word = ['_' for _ in select_word]
     return select_word, hidden_word
 
 
-def word_guess(guess_list: list, select_word: str) -> str:
-    """알파벳 하나를 입력받고 유효성 검사 후 사용한 알파벳 리스트 업데이트 및 유효 알파벳 반환"""
+def word_guess(guess_list: List[str], select_word: str) -> str:
+    """알파벳 하나를 입력받고 유효성 검사 후 사용한 알파벳 리스트 업데이트, 알파벳 반환"""
     while True:
         guess = input("알파벳을 하나 입력하세요: ").lower().strip()
-        if guess == 'cheat code':
+        if guess == '^^vv<><>ba':  # 코나미 커맨드
             print(f'정답: {select_word}')
         elif is_only_alpha(guess) and len(guess) == 1 and guess not in guess_list:
             guess_list.append(guess)
             guess_list.sort()
             return guess
         elif not is_only_alpha(guess):
-            print(Color.Red + "a ~ z 사이의 알파벳을 입력해 주세요." + Color.Reset)
+            print(paint("a ~ z 사이의 알파벳을 입력해 주세요.", Color.Red))
         elif len(guess) != 1:
-            print(Color.Red + "한 글자만 입력해 주세요." + Color.Reset)
+            print(paint("한 글자만 입력해 주세요.", Color.Red))
         else:
-            print(Color.Red + "이미 사용한 글자입니다." + Color.Reset)
+            print(paint("이미 사용한 글자입니다.", Color.Red))
 
 
 def is_only_alpha(letters: str) -> bool:
+    """a~z까지만 입력받도록 체크"""
     ret = 1
     for letter in letters:
         if letter.isalpha():
@@ -63,8 +85,8 @@ def is_only_alpha(letters: str) -> bool:
     return bool(ret)
 
 
-def word_find(select_word: str, hidden_word: list, guess: str) -> int:
-    """입력된 알파벳과 문제 단어를 비교하여 정답 가부 처리"""
+def word_find(select_word: str, hidden_word: List[str], guess: str) -> int:
+    """입력된 알파벳과 문제 단어를 비교하여 남은 기회 감산 처리"""
     index = -1
     if guess in select_word:
         for i in range(select_word.count(guess)):
@@ -75,35 +97,37 @@ def word_find(select_word: str, hidden_word: list, guess: str) -> int:
     return 0
 
 
-def print_result(hidden_word: list, guess_list: list, point: int) -> bool:
+def print_result(hidden_word: List[str], guess_list: List[str], point: int) -> bool:
     """행맨 그림 및 기타 UI 출력"""
+    print(f'\n사용 중인 단어 풀(Pool) - {paint(point, Color.Italic)}', end='')
     print(hangman_aa()[6 - point].rsplit('\n', 5)[0], end='  ')
     print(' '.join(hidden_word))
     print(hangman_aa()[6 - point].rsplit('\n', 5)[1], end='  ')
-    print(f'사용한 글자: "{Color.Green}{", ".join(guess_list)}{Color.Reset}"')
+    print(f'사용한 글자: "{paint(", ".join(guess_list), Color.Green)}"')
     print(hangman_aa()[6 - point].rsplit('\n', 5)[2], end='  ')
     print(f'남은 기회: {print_point_color(point)}')
     print(hangman_aa()[6 - point].split('\n', 5)[5])
     if '_' in hidden_word and point != 0:
         return True
     elif point == 0:
-        print(Color.Bold + Color.Yellow + "You Lose!" + Color.Reset)
+        print(paint("You Lose...", Color.Bold + Color.Yellow))
     else:
-        print(Color.Bold + Color.Yellow + "You Win!" + Color.Reset)
+        print(paint("You Win!", Color.Bold + Color.Yellow))
     return False
 
 
-def print_point_color(point: int):
+def print_point_color(point: int) -> str:
+    """남은 기회에 따라 표시되는 색상 변경"""
     if point >= 5:
-        point_color = Color.Blue + str(point) + Color.Reset
+        point_color = paint(point, Color.Blue)
     elif point >= 3:
-        point_color = Color.Yellow + str(point) + Color.Reset
+        point_color = paint(point, Color.Yellow)
     else:
-        point_color = Color.Red + str(point) + Color.Reset
+        point_color = paint(point, Color.Red)
     return point_color
 
 
-def hangman_aa() -> list:
+def hangman_aa() -> List[str]:
     """행맨 아스키 아트"""
     asciiart = [r'''
  +───+
@@ -159,20 +183,13 @@ def hangman_aa() -> list:
 
 
 def main():
-    check = ''
     print("행맨(Hangman) 게임을 시작합니다.")
     print("플레이할 단어 풀(Pool)의 크기를 고를 수 있습니다.")
-    print("1. small   - 약 200개의 단어가 포함되어 있습니다.")
-    print("2. big     - 약 800개의 단어가 포함되어 있습니다.")
-    print(Color.Red + "3. extreme - (주의!) 5만개 이상의 단어가 포함되어 있습니다." + Color.Reset)
-    while True:
-        size = input("단어 풀(pool)의 크기를 선택해 주세요 : ")
-        if size in ('1', '2', '3'):
-            break
-        else:
-            print("1, 2, 3 중 하나를 입력하세요.")
-    word_list = file_load(size)
+    check = ''
+    word_list, size = file_load()
     while check not in ('x', 'X'):
+        if check == 'reset':
+            word_list, size = file_load()
         select_word, hidden_word = random_word(word_list)
         point = 6
         guess_list = []
@@ -182,10 +199,11 @@ def main():
             guess = word_guess(guess_list, select_word)
             point += word_find(select_word, hidden_word, guess)
             loop_check = print_result(hidden_word, guess_list, point)
-        print(f'정답: {Color.Purple}{select_word}{Color.Reset}\n')
+        print(f'정답: {paint(select_word, Color.Purple)}\n')
 
-        check = input(f"계속하려면 {Color.Underline}아무 키{Color.Reset}나, "
-                      f"종료하려면 '{Color.Underline}x{Color.Reset}'를 입력하세요.\n")
+        check = input(f"계속하려면 {paint('아무 키', Color.Underline)}나, "
+                      f"종료하려면 '{paint('x', Color.Underline)}'를 입력하세요.\n"
+                      f"단어 풀(Pool)을 변경하려면 '{paint('reset', Color.Underline)}'을 입력합니다.\n")
 
 
 if __name__ == '__main__':
